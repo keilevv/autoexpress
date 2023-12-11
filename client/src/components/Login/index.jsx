@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Input, Button, Form } from "antd";
+import { useState } from "react";
+import { Input, Button, Form, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/autoexpresslogo.png";
 import useAuth from "../../hooks/useAuth";
@@ -7,28 +7,25 @@ import useViewport from "../../hooks/useViewport";
 import "./style.css";
 
 function Login() {
-  const [loading, setLoading] = useState(false);
   const [isRegisterForm, setIsRegisterForm] = useState(false);
-  const { user, loginUser } = useAuth();
+  const { loginUser, loading } = useAuth();
   const navigate = useNavigate();
   const { isMobileScreen } = useViewport();
 
   const onFinish = async (values) => {
-    setLoading(true);
     loginUser(values.username, values.password)
-      .then((response) => {
-        setLoading(false);
+      .then(() => {
+        notification.success({ message: "Solicitud realizada con exito" });
+        navigate("/dashboard")
       })
-      .catch(() => {
-        setLoading(false);
+      .catch((err) => {
+        notification.error({
+          message: "Solicitud fallida",
+          description: err.message,
+        });
       });
   };
 
-  useEffect(() => {
-    if (user.accessToken) {
-      navigate("/dashboard");
-    }
-  }, [user]);
   return (
     <div className="login-form">
       <div className="login-form-content">

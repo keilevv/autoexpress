@@ -1,21 +1,22 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import userService from "../services/user";
-import { notification } from "antd";
-function useAuth() {
-  const [user, setUser] = useState({})
 
-  function loginUser(username, password) {
+function useAuth() {
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
+
+
+  const loginUser = useCallback((username, password) => {
+    setLoading(true);
     return userService.login({ username, password })
       .then((response) => {
-        setUser(response.data)
-        notification.success({ message: "Solicitud realizada con exito" })
+        setUser(response.data);
+        setLoading(false);
+        return response.data
 
       })
-      .catch((err) => {
-        notification.error({ message: "Solicitud fallida", description: err.message })
-      })
-  }
+  }, [])
 
-  return { user, loginUser }
+  return { user, loginUser, loading }
 }
 export default useAuth
