@@ -4,7 +4,7 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme, Button } from "antd";
+import { Layout, Menu, theme, Button, Dropdown } from "antd";
 import useSidebar from "../../hooks/useSidebar";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -26,6 +26,9 @@ function MainLayout({ children }) {
     { key: "user-settings", label: "Opciones de usuario" },
     { key: "logout", label: "Cerrar sesion" },
   ];
+  const userMenuProps = {
+    items: userItems,
+  };
 
   return (
     <Layout>
@@ -75,13 +78,15 @@ function MainLayout({ children }) {
             items={headerItems}
             style={{ flex: 1, minWidth: 0 }}
           />
-          <Button
-            shape="circle"
-            size="large"
-            style={{ margin: "auto", marginRight: "15px" }}
-          >
-            <UserOutlined />
-          </Button>
+          <Dropdown menu={userMenuProps} trigger={"click"}>
+            <Button
+              shape="circle"
+              size="large"
+              style={{ margin: "auto", marginRight: "15px" }}
+            >
+              <UserOutlined />
+            </Button>
+          </Dropdown>
         </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
