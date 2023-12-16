@@ -12,7 +12,7 @@
   background: linear-gradient(
     0deg,
     rgba(71, 73, 73, 1) 0%,
-    rgba(45, 45, 45, 1) 54%
+    #272727 54%
   );
   .login-content {
     width: 100%;

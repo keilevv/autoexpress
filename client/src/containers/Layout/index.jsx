@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Button, Dropdown } from "antd";
 import useSidebar from "../../hooks/useSidebar";
+import "./style.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -46,9 +47,10 @@ function MainLayout({ children }) {
       >
         <div className="demo-logo-vertical" />
         <Menu
+        style={{backgroundColor: "#242424"}}
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["4"]}
+          defaultSelectedKeys={["home"]}
           items={items}
         />
       </Sider>

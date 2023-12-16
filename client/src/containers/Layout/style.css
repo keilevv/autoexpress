@@ -1,0 +1,10 @@
+.ant-menu-item.ant-menu-item-selected {
+  background-color: "red";
+}
+.ant-layout-sider-dark {
+  background-color: red;
+}
+
+aside {
+  background-color: #242424 !important;
+}
