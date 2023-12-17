@@ -1,11 +1,12 @@
 import Dashboard from "../../components/Dashboard";
 import MainLayout from "../Layout";
-
-function DashboardContainer() {
+import useMenu from "../../hooks/useMenu";
+function BillingContainer() {
+  const { defaultSelectedItem } = useMenu();
   return (
-    <MainLayout>
+    <MainLayout defaultLocation={defaultSelectedItem}>
       <Dashboard />
     </MainLayout>
   );
 }
-export default DashboardContainer;
+export default BillingContainer;

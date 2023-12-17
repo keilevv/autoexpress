@@ -5,22 +5,24 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Button, Dropdown } from "antd";
-import useSidebar from "../../hooks/useSidebar";
+import useMenu from "../../hooks/useMenu";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-function MainLayout({ children }) {
-  const { items } = useSidebar();
+function MainLayout({ children, defaultLocation = "" }) {
+  const navigate = useNavigate();
+  const { items } = useMenu();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   const headerItems = [
-    { key: "operations-link", label: "Operaciones" },
-    { key: "agenda-link", label: "Agenda" },
-    { key: "billing-link", label: "Facturacion" },
+    { key: "operations", label: "Operaciones" },
+    { key: "agenda", label: "Agenda" },
+    { key: "billing", label: "Facturacion" },
   ];
 
   const userItems = [
@@ -47,11 +49,11 @@ function MainLayout({ children }) {
       >
         <div className="demo-logo-vertical" />
         <Menu
-        style={{backgroundColor: "#242424"}}
+          style={{ backgroundColor: "#242424" }}
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["home"]}
           items={items}
+          defaultSelectedKeys={[defaultLocation]}
         />
       </Sider>
       <Layout>
@@ -75,10 +77,13 @@ function MainLayout({ children }) {
             }}
           />
           <Menu
+            selectedKeys={[defaultLocation]}
             mode="horizontal"
-            defaultSelectedKeys={"operations-link"}
             items={headerItems}
             style={{ flex: 1, minWidth: 0 }}
+            onClick={(value) => {
+              navigate(`/${value.key}`);
+            }}
           />
           <Dropdown menu={userMenuProps} trigger={"click"}>
             <Button
