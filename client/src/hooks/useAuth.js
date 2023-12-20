@@ -13,7 +13,6 @@ function useAuth() {
         setUser(response.data);
         setLoading(false);
         return response.data
-
       })
   }, [])
 
