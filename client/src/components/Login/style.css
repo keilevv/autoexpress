@@ -4,8 +4,13 @@
   min-height: 100%;
   border-radius: 10px;
 
-  .login-form-content {
+  .desktop {
     padding: 150px 100px 50px 100px;
+  }
+  .mobile {
+    padding-top: 50px;
+  }
+  .login-form-content {
     display: flex;
     justify-content: center;
 

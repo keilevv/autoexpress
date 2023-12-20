@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <div className="login-form">
-      <div className="login-form-content">
+      <div className={`login-form-content ${isMobileScreen ? "mobile" : "desktop"}`}>
         <div className="login-form-col">
           <h1>{isRegisterForm ? "Registrar usuario" : "Iniciar sesion"}</h1>
 
