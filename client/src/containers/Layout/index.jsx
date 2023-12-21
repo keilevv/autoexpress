@@ -1,17 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Button, Dropdown } from "antd";
+/* Custom hooks*/
 import useMenu from "../../hooks/useMenu";
-import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import "./style.css";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 function MainLayout({ children, defaultLocation = "" }) {
+  const { logoutUser } = useAuth();
   const navigate = useNavigate();
   const { items } = useMenu();
   const [collapsed, setCollapsed] = useState(false);
@@ -27,7 +30,19 @@ function MainLayout({ children, defaultLocation = "" }) {
 
   const userItems = [
     { key: "user-settings", label: "Opciones de usuario" },
-    { key: "logout", label: "Cerrar sesion" },
+    {
+      key: "logout",
+      label: (
+        <Link
+          onClick={() => {
+            logoutUser();
+          }}
+          to={"/login"}
+        >
+          Cerrar sesion
+        </Link>
+      ),
+    },
   ];
   const userMenuProps = {
     items: userItems,
