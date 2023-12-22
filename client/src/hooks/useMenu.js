@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 function useMenu() {
   const [items, setItems] = useState([]);
-  const [defaultSelectedItem, setDefaultSelectedItem] = useState("");
+  const [defaultSelectedHeader, setDefaultSelectedHeader] = useState("");
 
   function getMenuProps() {
     if (window.location.pathname.includes("operations") || window.location.pathname === "/") {
@@ -13,18 +13,18 @@ function useMenu() {
       { key: "cars", label: "Autos", icon: React.createElement(CarOutlined) },
       { key: "operators", label: "Operadores", icon: React.createElement(TeamOutlined) },
       { key: "settings", label: "Configuracion", icon: React.createElement(SettingOutlined) }];
-      setDefaultSelectedItem("operations")
+      setDefaultSelectedHeader("operations")
       setItems(currentItems);
     }
     if (window.location.pathname.includes("agenda") || window.location.pathname === "/agenda") {
       const currentItems = [{ key: "agenda", label: "Agenda", icon: React.createElement(CalendarOutlined) }]
-      setDefaultSelectedItem("agenda")
+      setDefaultSelectedHeader("agenda")
       setItems(currentItems)
     }
 
     if (window.location.pathname.includes("billing") || window.location.pathname === "/billing") {
       const currentItems = [{ key: "billing", label: "Facturacion", icon: React.createElement(DollarCircleOutlined) }]
-      setDefaultSelectedItem("billing")
+      setDefaultSelectedHeader("billing")
       setItems(currentItems)
     }
   }
@@ -33,6 +33,6 @@ function useMenu() {
     getMenuProps()
   }, [window.location.pathname])
 
-  return { items, defaultSelectedItem }
+  return { items, defaultSelectedHeader }
 }
 export default useMenu;

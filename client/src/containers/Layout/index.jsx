@@ -9,6 +9,8 @@ import { Layout, Menu, theme, Button, Dropdown } from "antd";
 /* Custom hooks*/
 import useMenu from "../../hooks/useMenu";
 import useAuth from "../../hooks/useAuth";
+
+import { headerModules } from "../../helpers/constants";
 import "./style.css";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -69,6 +71,17 @@ function MainLayout({ children, defaultLocation = "" }) {
           mode="inline"
           items={items}
           defaultSelectedKeys={[defaultLocation]}
+          onClick={(value) => {
+            headerModules.forEach((module) => {
+              if (window.location.pathname.includes(module)) {
+                if (value.key === module) {
+                  navigate(`/${module}`);
+                } else {
+                  navigate(`/${module}/${value.key}`);
+                }
+              }
+            });
+          }}
         />
       </Sider>
       <Layout>
