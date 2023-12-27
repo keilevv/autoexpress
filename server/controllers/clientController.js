@@ -25,14 +25,8 @@ exports.register = async (req, res) => {
 };
 // Handle index actions
 exports.index = function (req, res) {
-  Client.get(async function (err, clients) {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err,
-      });
-    }
-    const cursor = await Client.aggregate([
+  Client.find({}).then((response) => {
+    Client.aggregate([
       {
         $lookup: {
           from: "cars",
@@ -41,12 +35,12 @@ exports.index = function (req, res) {
           as: "cars",
         },
       },
-    ]);
-
-    res.json({
-      status: "success",
-      message: "Clients list retrieved successfully",
-      data: cursor,
+    ]).then((cursor) => {
+      return res.json({
+        status: "success",
+        message: "Clients list retrieved successfully",
+        data: cursor,
+      });
     });
   });
 };

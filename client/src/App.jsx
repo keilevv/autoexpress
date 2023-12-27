@@ -58,7 +58,7 @@ function App() {
             path="/operations/cars"
             element={
               <ProtectedRoute>
-                <MainLayout>
+                <MainLayout defaultLocation={defaultSelectedHeader}>
                   <Cars />
                 </MainLayout>
               </ProtectedRoute>
@@ -68,7 +68,7 @@ function App() {
             path="/operations/operators"
             element={
               <ProtectedRoute>
-                <MainLayout>
+                <MainLayout defaultLocation={defaultSelectedHeader}>
                   <Operators />
                 </MainLayout>
               </ProtectedRoute>
@@ -78,7 +78,7 @@ function App() {
             path="/operations/clients"
             element={
               <ProtectedRoute>
-                <MainLayout>
+                <MainLayout defaultLocation={defaultSelectedHeader}>
                   <Clients />
                 </MainLayout>
               </ProtectedRoute>
@@ -88,7 +88,7 @@ function App() {
             path="/operations/settings"
             element={
               <ProtectedRoute>
-                <MainLayout>
+                <MainLayout defaultLocation={defaultSelectedHeader}>
                   <Settings />
                 </MainLayout>
               </ProtectedRoute>

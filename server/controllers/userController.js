@@ -1,15 +1,8 @@
 User = require("../models/userModel");
 
 exports.index = function (req, res) {
-  User.get(async function (err, response) {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err,
-      });
-    }
-
-    const cursor = await User.aggregate([
+  User.find({}).then((response) => {
+    User.aggregate([
       {
         $lookup: {
           from: "roles",
@@ -18,22 +11,21 @@ exports.index = function (req, res) {
           as: "roles",
         },
       },
-    ]);
-
-    const builtUser = cursor.map((user) => {
-      return {
-        username: user.username,
-        email: user.email,
-        roles: user.roles.map((role) => {
-          return role.name;
-        }),
-      };
-    });
-
-    res.json({
-      status: "success",
-      message: "users retrieved successfully",
-      data: builtUser,
+    ]).then((cursor) => {
+      const builtUser = cursor.map((user) => {
+        return {
+          username: user.username,
+          email: user.email,
+          roles: user.roles.map((role) => {
+            return role.name;
+          }),
+        };
+      });
+      return res.json({
+        status: "success",
+        message: "Users list retrieved successfully",
+        data: builtUser,
+      });
     });
   });
 };
